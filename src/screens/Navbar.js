@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, ScrollView, Button } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 function Navbar(props) {
     const { navigation } = props;

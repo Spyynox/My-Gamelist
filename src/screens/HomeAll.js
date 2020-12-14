@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator, ScrollView } from 'react-native';
-import { Card } from 'react-native-elements' // Css déjà implementer sur un site tiers
+import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native';
+import { Card } from 'react-native-elements' // Css already implemented on a third-party site
 import { FlatList } from 'react-native-gesture-handler';
 
 export default class HomeAll extends React.Component {
@@ -8,31 +8,31 @@ export default class HomeAll extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // Permet d'avoir une image de loading pour voir si une API charge encore
+            // Allows you to have a loading image to see if an API is still loading
             isLoading1: true,
             isLoading2: true,
             isLoading3: true,
             isLoading4: true,
             isLoading5: true,
 
-            // Permet mapé une data
+            // Allows mapped data
             dataSource1: [],
             dataSource2: [],
             dataSource3: [],
             dataSource4: [],
             dataSource5: [],
 
-            total: 470668,
+            total: 481079,
         }
     }
 
 
-    getData = (subpath = ''/* Pour ajouter ?page= pour d'autre page*/) => fetch(`https://api.rawg.io/api/games${subpath}`)
+    getData = (subpath = ''/*To add ?page= for another page*/) => fetch(`https://api.rawg.io/api/games${subpath}`)
         .then(response => response.json())
-        .then(data => data.results); // j'appelle la valeur results de l'api pour faire plus court.
+        .then(data => data.results); // I call the results value of the api for short.
 
     componentDidMount() {
-        // J'appele une Promise pour appeler plusieurs api à la fois
+        // I call a Promise to call several APIs at the same time
         Promise.all([
             this.getData(),
             this.getData('?page=2'),
@@ -64,6 +64,7 @@ export default class HomeAll extends React.Component {
 
     }
 
+    // This function is used not to call this piece of code several times each time
     _renderItem = ({item, index}) => {
         return (
             <View>
@@ -71,7 +72,6 @@ export default class HomeAll extends React.Component {
                     <Card.Title>{item.name}</Card.Title>
                     <Card.Divider />
                     <View style={styles.user}>
-                        {/* <Card.Image source={{ uri: item.background_image, cache: 'only-i- cached' }} /> */}
                         <Text style={styles.name}>Date de sortie: {item.released}</Text>
                         <Text style={styles.name}>platforms: {item.platforms[0].platform.name}</Text>
                         <Text style={styles.name}>Genre: {item.genres[0].name}</Text>
@@ -101,7 +101,7 @@ export default class HomeAll extends React.Component {
     render() {
         let { dataSource1, dataSource2, dataSource3, dataSource4, dataSource5} = this.state
         if (this.state.isLoading1 || this.state.isLoading2 || this.state.isLoading3 || this.state.isLoading4 || this.state.isLoading5) {
-            // Permet d'avoir une image de loading pour voir si une API charge encore
+            // Allows you to have a loading image to see if an API is still loading
             return (
                 <View>
                     <ActivityIndicator />
@@ -109,37 +109,36 @@ export default class HomeAll extends React.Component {
             )
         } else {
             return (
-                <ScrollView>
+                <View>
                     <Text style={styles.textCenter}>{this.state.total} jeux dans le monde</Text>
 
-                    <View>
-                        <FlatList
-                            data={dataSource1}
-                            renderItem={this._renderItem}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                        <FlatList
-                            data={dataSource2}
-                            renderItem={this._renderItem}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                        <FlatList
-                            data={dataSource3}
-                            renderItem={this._renderItem}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                        <FlatList
-                            data={dataSource4}
-                            renderItem={this._renderItem}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                        <FlatList
-                            data={dataSource5}
-                            renderItem={this._renderItem}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View>
-                </ScrollView>
+                    {/* I call _renderItem and I increase the performance with Flatlist */}
+                    <FlatList
+                        data={dataSource1}
+                        renderItem={this._renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                    <FlatList
+                        data={dataSource2}
+                        renderItem={this._renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                    <FlatList
+                        data={dataSource3}
+                        renderItem={this._renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                    <FlatList
+                        data={dataSource4}
+                        renderItem={this._renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                    <FlatList
+                        data={dataSource5}
+                        renderItem={this._renderItem}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+            </View>
             );
         }
     }

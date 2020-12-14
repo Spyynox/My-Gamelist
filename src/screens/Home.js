@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, ScrollView, Button, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, Text } from 'react-native';
 import HomeAll from './HomeAll';
 
 export default class Home extends React.Component {
@@ -13,8 +13,8 @@ export default class Home extends React.Component {
             <View>
                 <View style={styles.container}>
                     
-                    <TouchableOpacity onPress={() =>//Permet de changer de page à partir d'une image
-                        this.props.navigation.navigate('Home')
+                    <TouchableOpacity onPress={() =>// Allows you to change page from an image
+                        this.props.navigation.navigate('Atlus')
                     }>
                         <Image
                             style={{ width: 50, height: 50 }}
@@ -25,39 +25,48 @@ export default class Home extends React.Component {
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() =>
-                        this.props.navigation.navigate('Home')
-                    }>
-                        <Image
-                            style={{ width: 50, height: 50 }}
-                            source={{ uri: "https://www.pdvg.it/wp-content/uploads/2020/02/CD-Projekt-Red-PDV.png" }}
-                            resizeMode='contain'
-
-                        />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity onPress={() =>
                         this.props.navigation.navigate('Top')
                     }>
-                        {/* <Image
+                        <Image
                             style={{ width: 50, height: 50 }}
                             source={{ uri: "https://lepetitjournal.com/sites/default/files/styles/main_article/public/2019-12/Photo%20LPJ%2842%29.jpg?itok=eTvz1UNM" }}
                             resizeMode='contain'
                             
-                        /> */}
-                        <View>
-                            <Button
-                                title="Dropdown"
-                                color="#841584"
-                            />
-                            <Text>Link 1</Text>
-                            <Text>Link 2</Text>
-                            <Text>Link 3</Text>
-                        </View>
+                        />
                     </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>
+                        this.props.navigation.navigate('Top2019')
+                    }>
+                        <Text>2019</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>
+                        this.props.navigation.navigate('Top2018')
+                    }>
+                        <Text>2018</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>
+                        this.props.navigation.navigate('Top2017')
+                    }>
+                        <Text>2017</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>
+                        this.props.navigation.navigate('Top2016')
+                    }>
+                        <Text>2016</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() =>
+                        this.props.navigation.navigate('Top2015')
+                    }>
+                        <Text>2015</Text>
+                    </TouchableOpacity>
+
                 </View>
-                <ScrollView /*Permet Scroll le fichier HomeAll.js */> 
-                    <HomeAll/>
-                </ScrollView>
+                <HomeAll/>
             </View>
         );
     }
